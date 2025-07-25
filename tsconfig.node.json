@@ -1,25 +1,29 @@
+// tsconfig.node.json
 {
   "compilerOptions": {
+    "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2023",
-    "lib": ["ES2023"],
+    "lib": ["ES2023"], // Or "ESNext"
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler", // Common for Vite
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": true, // Vite handles emission
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "esModuleInterop": true, // <--- CRITICAL: Make sure this is TRUE
+    "forceConsistentCasingInFileNames": true, // Good practice
+    "strict": true, // Good practice
+    "types": ["node"], // <--- IMPORTANT: Ensure Node.js types are included
+
+    // If you had 'verbatimModuleSyntax: true', consider commenting it out temporarily
+    // if the error persists even after esModuleInterop is true and a clean restart.
+    // "verbatimModuleSyntax": true,
+    "moduleDetection": "force" // Often present with verbatimModuleSyntax
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts", // <--- CRITICAL: Ensure your vite.config.ts is included here
+    "postcss.config.js", // If you have this
+    "tailwind.config.js" // If you have this
+  ]
 }
